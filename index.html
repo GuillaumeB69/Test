@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TaskFlow Pro</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <h1>TaskFlow Pro</h1>
+      <div class="topbar-actions">
+        <button id="themeToggle" class="btn ghost" aria-label="Changer de thème">🌙</button>
+        <button id="newTaskShortcut" class="btn primary">+ Nouvelle tâche</button>
+      </div>
+    </header>
+
+    <main class="layout">
+      <aside class="panel" id="profilePanel">
+        <h2>Profil & Équipe</h2>
+        <form id="profileForm" class="stack">
+          <label>
+            Nom
+            <input id="profileName" type="text" placeholder="Votre nom" required />
+          </label>
+          <label>
+            Email
+            <input id="profileEmail" type="email" placeholder="vous@entreprise.com" required />
+          </label>
+          <button class="btn primary" type="submit">Mettre à jour le profil</button>
+        </form>
+
+        <section>
+          <h3>Membres d'équipe</h3>
+          <form id="memberForm" class="inline-form">
+            <input id="memberName" type="text" placeholder="Ajouter un membre" required />
+            <button class="btn" type="submit">Ajouter</button>
+          </form>
+          <ul id="teamList" class="list"></ul>
+        </section>
+      </aside>
+
+      <section class="panel" id="dashboardPanel">
+        <h2>Dashboard</h2>
+        <div class="kpi-grid" id="kpiGrid"></div>
+
+        <div class="progress-chart">
+          <h3>Progression globale</h3>
+          <div class="bar-track"><div id="progressBar" class="bar-fill"></div></div>
+          <p id="progressLabel">0% terminé</p>
+        </div>
+
+        <div class="dashboard-columns">
+          <section>
+            <h3>Alertes échéances</h3>
+            <ul id="deadlineAlerts" class="list compact"></ul>
+          </section>
+          <section>
+            <h3>Activité récente</h3>
+            <ul id="activityFeed" class="list compact"></ul>
+          </section>
+        </div>
+      </section>
+
+      <section class="panel" id="tasksPanel">
+        <h2>Gestion des tâches</h2>
+
+        <form id="taskForm" class="task-form">
+          <input id="taskTitle" type="text" placeholder="Titre de la tâche" required />
+          <select id="taskPriority">
+            <option value="low">Faible</option>
+            <option value="medium" selected>Moyenne</option>
+            <option value="high">Haute</option>
+          </select>
+          <input id="taskDueDate" type="date" required />
+          <button class="btn primary" type="submit">Créer</button>
+        </form>
+
+        <div class="filters">
+          <input id="taskSearch" type="search" placeholder="Rechercher (raccourci /)" />
+          <select id="statusFilter">
+            <option value="all">Tous statuts</option>
+            <option value="todo">À faire</option>
+            <option value="doing">En cours</option>
+            <option value="done">Terminé</option>
+          </select>
+          <select id="priorityFilter">
+            <option value="all">Toutes priorités</option>
+            <option value="high">Haute</option>
+            <option value="medium">Moyenne</option>
+            <option value="low">Faible</option>
+          </select>
+          <label class="checkbox-inline"><input id="overdueOnly" type="checkbox" /> Retard uniquement</label>
+        </div>
+
+        <div class="kanban" id="kanbanBoard">
+          <div class="column" data-status="todo">
+            <h3>À faire</h3>
+            <div class="column-body" id="todoColumn"></div>
+          </div>
+          <div class="column" data-status="doing">
+            <h3>En cours</h3>
+            <div class="column-body" id="doingColumn"></div>
+          </div>
+          <div class="column" data-status="done">
+            <h3>Terminé</h3>
+            <div class="column-body" id="doneColumn"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <dialog id="commentsDialog">
+      <form method="dialog" class="stack">
+        <h3 id="commentTaskTitle">Commentaires</h3>
+        <ul id="commentList" class="list compact"></ul>
+        <textarea id="commentInput" rows="3" placeholder="Ajouter un commentaire"></textarea>
+        <div class="dialog-actions">
+          <button value="cancel" class="btn ghost">Fermer</button>
+          <button id="addCommentBtn" value="default" class="btn primary">Ajouter</button>
+        </div>
+      </form>
+    </dialog>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
